@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright © 2017 Jeremy Custenborder (jcustenborder@gmail.com)
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.jcustenborder.kafka.connect</groupId>
+        <artifactId>kafka-connect-parent</artifactId>
+        <version>0.10.1.0-cp1</version>
+    </parent>
+
+
+    <prerequisites>
+        <maven>3.3.0</maven>
+    </prerequisites>
+
+    <groupId>io.confluent.kafka.connect</groupId>
+    <artifactId>kafka-connect-statsd</artifactId>
+    <packaging>jar</packaging>
+    <version>0.1-SNAPSHOT</version>
+    <name>kafka-connect-statsd</name>
+
+    <url>https://github.com/jcustenborder/kafka-connect-statsd</url>
+
+    <description>
+        A Kafka Connect connector receiving data from statsd.
+    </description>
+
+    <inceptionYear>2017</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>jcustenborder</id>
+            <name>Jeremy Custenborder</name>
+            <email>jcustenborder@gmail.com</email>
+            <timezone>America/Chicago</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/jcustenborder/kafka-connect-statsd</url>
+        <connection>scm:git:https://github.com/jcustenborder/kafka-connect-statsd.git</connection>
+        <developerConnection>scm:git:git@github.com:jcustenborder/kafka-connect-statsd.git</developerConnection>
+    </scm>
+
+    <properties>
+        <netty.version>4.1.7.Final</netty.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <name>Confluent</name>
+            <url>http://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jcustenborder.netty</groupId>
+            <artifactId>netty-codec-statsd</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.timgroup</groupId>
+            <artifactId>java-statsd-client</artifactId>
+            <version>3.1.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <argLine>-Djava.awt.headless=true</argLine>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+    <profiles>
+        <profile>
+            <id>github</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <keyname>${gpg.keyname}</keyname>
+                                    <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>de.jutzig</groupId>
+                        <artifactId>github-release-plugin</artifactId>
+                        <version>1.1.1</version>
+                        <executions>
+                            <execution>
+                                <id>deploy-to-github</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>release</goal>
+                                </goals>
+                                <configuration>
+                                    <description>${project.version}</description>
+                                    <releaseName>${project.version}</releaseName>
+                                    <tag>${project.version}</tag>
+
+                                    <!-- If your project has additional artifacts, such as ones produced by
+                                         the maven-assembly-plugin, you can define the following
+                                         (requires version 1.1.1 of the plugin or higher): -->
+                                    <fileSets>
+                                        <fileSet>
+                                            <directory>${project.build.directory}</directory>
+                                            <includes>
+                                                <include>${project.artifactId}*.tar.gz</include>
+                                                <include>${project.artifactId}*.tar.gz.asc</include>
+                                            </includes>
+                                        </fileSet>
+                                    </fileSets>
+                                </configuration>
+                            </execution>
+                        </executions>
+
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <!--<serverId>oss.sonatype.org</serverId>-->
+                            <!--<nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
+                            <!--<description>${project.version}</description>-->
+                            <skipRemoteStaging>true</skipRemoteStaging>
+                            <skipStaging>true</skipStaging>
+                            <skipLocalStaging>true</skipLocalStaging>
+                            <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>deploy-to-sonatype</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <!--<goal>deploy</goal>-->
+                                    <!--<goal>release</goal>-->
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <repository>
+                    <id>oss.sonatype.org</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>oss.sonatype.org</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+</project>
