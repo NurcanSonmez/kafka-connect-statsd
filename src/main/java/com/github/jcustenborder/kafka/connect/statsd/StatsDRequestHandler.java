@@ -15,9 +15,9 @@
  */
 package com.github.jcustenborder.kafka.connect.statsd;
 
+import com.github.jcustenborder.kafka.connect.utils.data.SourceRecordConcurrentLinkedDeque;
 import com.github.jcustenborder.netty.statsd.Metric;
 import com.google.common.collect.ImmutableMap;
-import io.confluent.kafka.connect.utils.data.SourceRecordConcurrentLinkedDeque;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.kafka.common.utils.Time;

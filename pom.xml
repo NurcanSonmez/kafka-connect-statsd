@@ -66,7 +66,7 @@
         <dependency>
             <groupId>com.github.jcustenborder.netty</groupId>
             <artifactId>netty-codec-statsd</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>[0.1.4,0.1.1000)</version>
         </dependency>
         <dependency>
             <groupId>com.timgroup</groupId>

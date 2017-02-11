@@ -15,11 +15,11 @@
  */
 package com.github.jcustenborder.kafka.connect.statsd;
 
+import com.github.jcustenborder.kafka.connect.utils.data.SourceRecordConcurrentLinkedDeque;
 import com.google.common.base.Stopwatch;
 import com.google.common.util.concurrent.ServiceManager;
 import com.timgroup.statsd.NonBlockingStatsDClient;
 import com.timgroup.statsd.StatsDClient;
-import io.confluent.kafka.connect.utils.data.SourceRecordConcurrentLinkedDeque;
 import org.apache.kafka.common.utils.Time;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

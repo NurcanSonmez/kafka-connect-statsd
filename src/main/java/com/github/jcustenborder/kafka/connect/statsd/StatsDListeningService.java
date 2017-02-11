@@ -15,9 +15,10 @@
  */
 package com.github.jcustenborder.kafka.connect.statsd;
 
+import com.github.jcustenborder.kafka.connect.utils.data.SourceRecordConcurrentLinkedDeque;
 import com.github.jcustenborder.netty.statsd.StatsDRequestDecoder;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
-import io.confluent.kafka.connect.utils.data.SourceRecordConcurrentLinkedDeque;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

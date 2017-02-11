@@ -15,7 +15,7 @@
  */
 package com.github.jcustenborder.kafka.connect.statsd;
 
-import io.confluent.kafka.connect.utils.config.ValidPort;
+import com.github.jcustenborder.kafka.connect.utils.config.ValidPort;
 import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.common.config.ConfigDef;
 

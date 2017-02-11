@@ -15,8 +15,9 @@
  */
 package com.github.jcustenborder.kafka.connect.statsd;
 
+import com.github.jcustenborder.kafka.connect.utils.data.SourceRecordConcurrentLinkedDeque;
 import com.google.common.util.concurrent.ServiceManager;
-import io.confluent.kafka.connect.utils.data.SourceRecordConcurrentLinkedDeque;
+
 import org.apache.kafka.common.utils.SystemTime;
 import org.apache.kafka.common.utils.Time;
 import org.apache.kafka.connect.errors.ConnectException;
