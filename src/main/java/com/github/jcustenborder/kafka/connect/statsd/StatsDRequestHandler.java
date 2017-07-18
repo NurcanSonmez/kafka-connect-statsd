@@ -67,7 +67,7 @@ class StatsDRequestHandler extends SimpleChannelInboundHandler<Metric> {
         .field(FIELD_TYPE, SchemaBuilder.string().doc("Type of metric.").build())
         .field(FIELD_VALUE, SchemaBuilder.float64().doc("Value for the metric.").build())
         .field(FIELD_SAMPLERATE, SchemaBuilder.float64().optional().doc("Sample rate for the metric. Only valid for counters.").build())
-        .field(FIELD_TIMESTAMP, Timestamp.builder().doc("Sample rate for the metric. Only valid for counters.").build())
+        .field(FIELD_TIMESTAMP, Timestamp.builder().doc("Timestamp for the metric.").build())
         .build();
   }
 

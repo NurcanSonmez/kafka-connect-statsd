@@ -15,6 +15,8 @@
  */
 package com.github.jcustenborder.kafka.connect.statsd;
 
+import com.github.jcustenborder.kafka.connect.utils.config.Description;
+import com.github.jcustenborder.kafka.connect.utils.config.DocumentationImportant;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.connect.connector.Task;
 import org.apache.kafka.connect.source.SourceConnector;
@@ -23,6 +25,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@Description("The StatsDSourceConnector is used to listen for StatsD messages and write them to Kafka")
+@DocumentationImportant("This connector listens on a network port. Running more than one task or running in distributed " +
+    "mode can cause some undesired effects if another task already has the port open. It is recommended that you run this " +
+    "connector in :term:`Standalone Mode`.")
 public class StatsDSourceConnector extends SourceConnector {
   @Override
   public String version() {
